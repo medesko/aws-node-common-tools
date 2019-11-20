@@ -7,7 +7,8 @@
 	"scripts": {
 		"build": "tsc",
 		"pretest": "rm -rf ./dist && ./node_modules/.bin/tsc ./test/**.ts --target es2017 --module commonjs --outDir ./dist --sourceMap --strict",
-		"test": "_mocha ./dist/test/*.spec.js -- -R spec"
+		"test": "_mocha ./dist/test/*.spec.js -- -R spec",
+		"cover": "istanbul cover _mocha ./dist/test/*.spec.js -- -R spec"
 	},
 	"repository": {
 		"type": "git",
