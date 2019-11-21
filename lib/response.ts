@@ -5,7 +5,7 @@ const headers = {
 	'Access-Control-Allow-Credentials': true
 };
 
-export const createResponse = async (promise: any, options?: any) => {
+export const createResponse = async <T>(promise: T, options?: any) => {
 	const successCode = (options && options.successCode) || 200;
 	try {
 		const result = await promise;
