@@ -9,6 +9,6 @@ describe('log function test', async () => {
 	it('log at info level', async () => {
 		delete process.env.DEBUG;
 		delete require.cache[log];
-		log.debug('info test');
+		log.info('info test');
 	});
 });

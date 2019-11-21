@@ -1,7 +1,9 @@
 # sls-common-tools
+
 These are all common utilities
 
-## Installation 
+## Installation
+
 ```sh
 npm install sls-common-tools --save
 ```
@@ -9,17 +11,20 @@ npm install sls-common-tools --save
 ## Usage
 
 ### TypeScript
+
 ```typescript
-import { getPlural } from 'sls-common-tools';
-console.log(getPlural('Goose'))
-console.log(getSingular('Guns'))
+import { log } from 'sls-common-tools';
+log.debug('debug test');
+log.info('info test');
 ```
+
 ```sh
 Output should be 'Geese'
 Output should be 'Gun'
 ```
 
-## Test 
+## Test
+
 ```sh
 npm run test
 ```
