@@ -2,9 +2,9 @@
 	"name": "sls-common-tools",
 	"version": "1.2.0",
 	"description": "These are all common utilities",
-	"main": "dist/index.js",
-	"type": "commonjs",
+	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"type": "commonjs",
 	"scripts": {
 		"build": "tsc",
 		"preparepublish": "npm install && npm run build",
