@@ -1,8 +1,7 @@
-import { get } from 'lodash/get';
-import * as bourne from 'bourne';
+import { get } from 'lodash';
 import { log } from './log';
 
-export const processEvent = event => {
+export const processEvent = (event: any) => {
 	const { body, pathParameters, queryStringParameters, requestContext } = event;
 	const { httpMethod, resourceId, resourcePath, requestId } = requestContext;
 	// The following works for offline mode as well as real
@@ -15,7 +14,7 @@ export const processEvent = event => {
 	);
 
 	return {
-		body: typeof body === 'string' ? bourne.parse(body) : body,
+		body: typeof body === 'string' ? JSON.parse(body) : body,
 		queryStringParameters,
 		pathParameters,
 		userId
