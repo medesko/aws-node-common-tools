@@ -10,7 +10,7 @@ const {
 const loggerMiddleware = require('lambda-logger-middleware');
 
 import { autoProxyResponse } from './middlewares/auto-proxy-response';
-import { log } from './log';
+import { log } from './log.utilities';
 
 export const middify = <T>(exports: T, options: any = {}) => {
 	const result: any = {};

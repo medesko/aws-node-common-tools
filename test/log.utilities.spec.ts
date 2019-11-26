@@ -1,4 +1,4 @@
-import { log } from '../lib/log';
+import { log } from '../lib/log.utilities';
 describe('log function test', async () => {
 	it('log at debug level', async () => {
 		process.env.DEBUG = 'true';

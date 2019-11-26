@@ -1,9 +1,9 @@
+import * as path from 'path';
 const pino = require('pino');
-
-import { name } from './service-info';
+const { name: serviceName } = require(path.join(process.cwd(), 'package.json'));
 
 export const log = pino({
-	name,
+	serviceName,
 	level:
 		process.env.DEBUG ||
 		process.env.IS_OFFLINE ||

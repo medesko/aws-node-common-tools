@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { expect } from 'chai';
 const awsMock = require('aws-sdk-mock');
-import * as eventDispatcher from '../lib/event-dispatcher';
+import * as eventDispatcher from '../lib/event.dispatcher';
 awsMock.setSDK(path.resolve('./node_modules/aws-sdk'));
 
 const received: { cwEvents: any } = { cwEvents: {} };

@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { log } from './log';
+import { log } from './log.utilities';
 
 export const processEvent = (event: any) => {
 	const { body, pathParameters, queryStringParameters, requestContext } = event;

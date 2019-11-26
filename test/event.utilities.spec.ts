@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 const UUID = require('uuid/v5');
-import { processEvent } from '../lib/event-util';
+import { processEvent } from '../lib/event.utilities';
 
 describe('Service response test', async () => {
 	it('userId is extracted from the cognito lambda-proxy-mapped authorizer claims', async () => {

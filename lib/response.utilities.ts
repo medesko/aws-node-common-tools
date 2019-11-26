@@ -1,11 +1,11 @@
-import { log } from './log';
+import { log } from './log.utilities';
 
 const headers = {
 	'Access-Control-Allow-Origin': '*',
 	'Access-Control-Allow-Credentials': true
 };
 
-export const createResponse = async <T>(promise: T, options?: any) => {
+export const createResponse = async <T>(promise: Promise<T>, options?: any) => {
 	const successCode = (options && options.successCode) || 200;
 	try {
 		const result = await promise;
