@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { createResponse } from '../lib/response';
+import { createResponse } from '../lib/response.utilities';
 
 const testInputs = [
 	{
