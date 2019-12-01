@@ -1,3 +1,4 @@
+export * from './lib/uuid.utilities';
 export * from './lib/event.utilities';
 export * from './lib/email.utilities';
 export * from './lib/log.utilities';
