@@ -25,6 +25,7 @@
 		"aws-signed-axios": "^1.0.6",
 		"aws-xray-sdk": "^2.5.0",
 		"lambda-logger-middleware": "^1.0.3",
+		"lodash": "^4.17.15",
 		"middy": "^0.30.4",
 		"middy-autoproxyresponse": "^0.1.0",
 		"pino": "^5.13.6"
