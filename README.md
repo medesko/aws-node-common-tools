@@ -14,13 +14,11 @@ npm install sls-common-tools --save
 
 ```typescript
 import { log } from 'sls-common-tools';
-log.debug('debug test');
 log.info('info test');
 ```
 
 ```sh
-Output should be 'Geese'
-Output should be 'Gun'
+Output should be {"level":30,"time":1575329413411,"pid":80837,"hostname":"MBP-DE-MOHAMED","msg":"info test","v":1}
 ```
 
 ## Test

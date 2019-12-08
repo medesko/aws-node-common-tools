@@ -1,6 +1,6 @@
 {
 	"name": "sls-common-tools",
-	"version": "1.2.8",
+	"version": "1.2.9",
 	"description": "These are all common utilities",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -28,7 +28,8 @@
 		"lodash": "^4.17.15",
 		"middy": "^0.30.4",
 		"middy-autoproxyresponse": "^0.1.0",
-		"pino": "^5.13.6"
+		"pino": "^5.13.6",
+		"uuid": "^3.3.3"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.2.5",
