@@ -1,0 +1,42 @@
+{% extends "../main.html.twig" %}
+{% block content %}
+    <!-- =============================== Body ====================================== -->
+    <div class="movableContent"
+         style="border: 0; padding-top: 0; position: relative;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0"
+               align="center">
+            <tr>
+                <td height='55'></td>
+            </tr>
+            <tr>
+                <td align='left'>
+                    <div class="contentEditableContainer contentTextEditable">
+                        <div class="contentEditable" align='center'>
+                            <p>Bonjour, </p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td height='15'></td>
+            </tr>
+            <tr>
+                <td align='left'>
+                    <div class="contentEditableContainer contentTextEditable">
+                        <div class="contentEditable" align='center'>
+                            <p>Test email render template {{ firstName }}</p>
+                            <br>
+                            {# <h2>Détails de la demande :</h2> #}
+                            {# <p>
+                                <span>Domaines d'intervention : <span>{{ title }}</span></span> <br>
+                                <span>Intitulé de la compétence demandée :<span>{{ skills }}</span></span>
+                                <br>
+                            </p> #}
+                            <br>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

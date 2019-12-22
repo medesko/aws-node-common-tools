@@ -1,10 +1,6 @@
 import * as path from 'path';
 import * as nunjucks from 'nunjucks';
-const dateFilter = require('nunjucks-date-filter');
-const views = path.join(__dirname + '/../views');
-console.log(views);
-const env = new nunjucks.Environment();
-env.addFilter('date', dateFilter);
+const views = path.join(__dirname + '/../../views');
 nunjucks.configure(views, { autoescape: true });
 
 export const renderTemplate = (path: string, data: any = {}) => {
