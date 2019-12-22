@@ -6,3 +6,4 @@ export * from './lib/response.utilities';
 export * from './lib/user.utilities';
 export * from './lib/middy.utilities';
 export * from './lib/event.dispatcher';
+export * from './lib/nunjucks.render';
