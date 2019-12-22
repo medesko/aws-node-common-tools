@@ -20,7 +20,10 @@ export const createResponse = async <T>(promise: Promise<T>, options?: any) => {
 		log.error({ err }, 'Request implementation failed');
 		return {
 			statusCode: 500,
-			body: JSON.stringify({ ok: false }),
+			body: JSON.stringify({
+				name: 'FAILED',
+				message: err.message
+			}),
 			headers
 		};
 	}
