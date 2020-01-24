@@ -7,6 +7,7 @@ export const renderTemplate = (path: string, data: any = {}) => {
 	return new Promise<string | null>((resolve, reject) => {
 		return nunjucks.render(path, data, (error: any, template: string) => {
 			if (error !== null) return reject(error);
+			console.time();
 			return resolve(template);
 		});
 	});
