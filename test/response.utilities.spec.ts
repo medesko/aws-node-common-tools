@@ -27,7 +27,7 @@ describe('Service response test', async () => {
 
 		expect(result.statusCode).to.equal(500);
 		const parsedBody = JSON.parse(result.body);
-		expect(parsedBody).to.deep.equal({ ok: false });
+		expect(parsedBody).to.deep.equal({ name: 'FAILED', message: 'Promise Rejected' });
 		expect(result.headers).ok;
 	});
 
