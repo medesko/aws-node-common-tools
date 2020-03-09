@@ -10,3 +10,4 @@ export * from './lib/nunjucks.render';
 export * from './lib/promise.utilities';
 export * from './lib/time.utilities';
 export * from './lib/mongoose.utilities';
+export * from './lib/sls.oauth';
