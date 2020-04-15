@@ -10,6 +10,7 @@ class Options {
 			socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
+			useCreateIndex: true,
 			keepAlive: true
 		};
 	}
@@ -18,6 +19,7 @@ class Options {
 let isConnected: boolean = false;
 export const connectTodb = () => {
 	console.log('Start connecting db...');
+
 
 	const options: ConnectionOptions = Options.mongoose;
 
