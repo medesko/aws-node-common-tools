@@ -5,7 +5,7 @@ const headers = {
 	'Access-Control-Allow-Credentials': true
 };
 
-export const createResponse = async <T>(promise: Promise<T>, options?: any) => {
+export const createResponse = async <T>(promise: Promise<T>, options?: { successCode: number }) => {
 	const successCode = (options && options.successCode) || 200;
 	try {
 		const result = await promise;
@@ -20,10 +20,7 @@ export const createResponse = async <T>(promise: Promise<T>, options?: any) => {
 		log.error({ err }, 'Request implementation failed');
 		return {
 			statusCode: 500,
-			body: JSON.stringify({
-				name: 'FAILED',
-				message: err.message
-			}),
+			body: JSON.stringify({ name: 'FAILED', message: err.message }),
 			headers
 		};
 	}
