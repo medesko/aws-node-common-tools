@@ -1,5 +1,6 @@
 export * from './lib/uuid.utilities';
 export * from './lib/event.utilities';
+export * from './lib/invoke.lambda';
 export * from './lib/email.utilities';
 export * from './lib/log.utilities';
 export * from './lib/response.utilities';
