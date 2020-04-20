@@ -1,6 +1,6 @@
 import * as path from 'path';
 const awsXray = require('aws-xray-sdk');
-const AWS = require('aws-sdk');
+import * as AWS from 'aws-sdk';
 const cwEvents = awsXray.captureAWSClient(
 	new AWS.CloudWatchEvents({ endpoint: process.env.EVENTS_ENDPOINT_URL })
 );
