@@ -2,7 +2,7 @@ import {APIGatewayEvent} from "aws-lambda";
 import { get } from 'lodash';
 import { log } from './log.utilities';
 
-export const processEvent = (event: APIGatewayEvent) => {
+export const processEvent = (event: any) => {
 	const { body, pathParameters, queryStringParameters, requestContext } = event;
 	const { httpMethod, resourceId, resourcePath, requestId } = requestContext;
 	// The following works for offline mode as well as real
