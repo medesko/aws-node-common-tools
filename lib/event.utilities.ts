@@ -1,4 +1,3 @@
-import {APIGatewayEvent} from "aws-lambda";
 import { get } from 'lodash';
 import { log } from './log.utilities';
 
@@ -9,8 +8,6 @@ export const processEvent = (event: any) => {
 	// lambda-proxy with cognito user pool authorization
 	// if the 'cognito:username' is set in a JWT-encoded Authorization token
 	const userId = get(requestContext, 'authorizer.claims.cognito:username');
-	const email = get(requestContext, 'authorizer.claims.email');
-	const clientId = get(requestContext, 'authorizer.claims.clientId');
 	log.debug(
 		{ resourceId, resourcePath, requestId, httpMethod, userId },
 		'Request received'
@@ -21,7 +18,5 @@ export const processEvent = (event: any) => {
 		queryStringParameters,
 		pathParameters,
 		userId,
-		email,
-		clientId
 	};
 };
