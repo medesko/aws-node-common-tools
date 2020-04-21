@@ -10,7 +10,7 @@ export const processEvent = (event: any) => {
 	// if the 'cognito:username' is set in a JWT-encoded Authorization token
 	const userId = get(requestContext, 'authorizer.claims.cognito:username');
 	const email = get(requestContext, 'authorizer.claims.email');
-	const clientId = get(requestContext, 'authorizer.claims.clientId');
+	const clientId = get(requestContext, 'authorizer.claims.client_id');
 	log.debug(
 		{ resourceId, resourcePath, requestId, httpMethod, userId },
 		'Request received'
