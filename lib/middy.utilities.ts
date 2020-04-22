@@ -27,7 +27,7 @@ export const middify = <T>(exports: T, options: any = {}) => {
 			.use(autoProxyResponse())
 			.use(httpErrorHandler());
 
-		if (options.ssmParameters && process.env.SLS_STAGE !== 'test') {
+		if (options.ssmParameters && process.env.STAGE !== 'test') {
 			handler.use(
 				ssm({
 					cache: true,

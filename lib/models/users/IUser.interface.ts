@@ -4,7 +4,7 @@ import { UserState } from './User.enum';
 export interface IUser {
 	uuid: string;
 	email: string;
-	firsName?: string;
+	firstName?: string;
 	lastName?: string;
 	appScopedData: { [key: string]: IappScopedData };
 }

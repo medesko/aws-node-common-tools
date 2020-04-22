@@ -17,6 +17,7 @@ export const invoke = async (lambdaName, config) => {
     const result: any = await lambda.invoke(params).promise();
     const parsed: any = JSON.parse(result.Payload);
     const body: any = JSON.parse(parsed.body);
+    console.log('IIIII', body);
     
     return body.data.getZipdata;
 
