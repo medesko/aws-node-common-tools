@@ -17,7 +17,7 @@ class Options {
 }
 
 let isConnected: boolean = false;
-export const connectTodb = () => {
+export const connectTodb = (url?: string) => {
 	console.log('Start connecting db...');
 
 
@@ -27,7 +27,7 @@ export const connectTodb = () => {
 		return Promise.resolve();
 	}
 
-	const dbUri: string = process.env.SLS_MONGO_URL || '';
+	const dbUri: string = process.env.MONGO_URL || url;
 
 	return connect(dbUri, options)
 		.then((db: Mongoose) => {

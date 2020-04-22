@@ -7,7 +7,7 @@ export const log = pino({
 	level:
 		process.env.DEBUG ||
 		process.env.IS_OFFLINE ||
-		process.env.SLS_STAGE === 'develop'
+		process.env.STAGE === 'develop'
 			? 'debug'
 			: 'info'
 });
