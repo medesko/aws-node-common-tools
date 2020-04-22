@@ -12,16 +12,29 @@ export const invoke = async (lambdaName, config) => {
     LogType: 'Tail',
   }
 
-  try {
+  return new Promise((resolve, reject) => {
+      lambda.invoke(params, (err, data) => {
+          if (err) {
+              console.log(err, err.stack);
+              reject(err);
+          }
+          else {
+              console.log(data);
+              resolve(data);
+          }
+      });     
+  });
 
-    const result: any = await lambda.invoke(params).promise();
-    const parsed: any = JSON.parse(result.Payload);
-    const body: any = JSON.parse(parsed.body);
-    console.log('IIIII', body);
+  // try {
+
+  //   const result: any = await lambda.invoke(params).promise();
+  //   const parsed: any = JSON.parse(result.Payload);
+  //   const body: any = JSON.parse(parsed.body);
+  //   console.log('IIIII', body);
     
-    return body.data.getZipdata;
+  //   return body.data.getZipdata;
 
-  } catch (err) {
-    return err;
-  }
+  // } catch (err) {
+  //   return err;
+  // }
 }
