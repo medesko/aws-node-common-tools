@@ -5,20 +5,27 @@ export const invoke = async (lambdaName, config) => {
 
   const requestContext = config.clientId ? { authorizer: { claims: {client_id: config.clientId }}} : {}
 
-  const params: any =  {
-    FunctionName: `${lambdaName}`,
-    Payload: JSON.stringify({ body: config, requestContext}),
-    InvocationType: 'RequestResponse',
-    LogType: 'Tail',
-  }
+  return new Promise((resolve, reject) => {
+    lambda.invoke({
+      FunctionName: `${lambdaName}`,
+      Payload: JSON.stringify({
+        body: config,
+        requestContext,
+      }),
+      InvocationType: 'RequestResponse',
+      LogType: 'Tail',
+    }, (error, data) => {
+      if (error) {
+        return reject(error)
+      }
+      if (data.Payload) {
+        if (+JSON.parse(data.Payload).statusCode >= 400) {
+          return reject(JSON.parse(data.Payload))
+        }
+        const response = JSON.parse(data.Payload)
 
-  try {
-    const result: any = await lambda.invoke(params).promise();
-    const parsed: any = JSON.parse(result.Payload);
-    const body: any = JSON.parse(parsed.body);
-    console.log('IIIII', body.data.getZipdata);    
-    return body;
-  } catch (err) {
-    return err;
-  }
+        return resolve(response)
+      }
+    })
+  })
 }
