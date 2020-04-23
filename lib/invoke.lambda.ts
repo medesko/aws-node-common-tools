@@ -5,11 +5,18 @@ export const invoke = async (lambdaName, config) => {
 
   const requestContext = config.clientId ? { authorizer: { claims: {client_id: config.clientId }}} : {}
 
+  const params: any =  {
+    FunctionName: `${lambdaName}`,
+    Payload: JSON.stringify({ body: config, requestContext}),
+    InvocationType: 'RequestResponse',
+    LogType: 'Tail',
+  }
+
   return new Promise((resolve, reject) => {
     lambda.invoke({
       FunctionName: `${lambdaName}`,
       Payload: JSON.stringify({
-        body: config,
+        body: params,
         requestContext,
       }),
       InvocationType: 'RequestResponse',
