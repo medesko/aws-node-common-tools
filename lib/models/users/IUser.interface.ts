@@ -3,6 +3,7 @@ import { UserState } from './User.enum';
 
 export interface IUser {
 	uuid: string;
+	userId: string;
 	email: string;
 	firstName?: string;
 	lastName?: string;
