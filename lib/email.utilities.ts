@@ -6,7 +6,7 @@ const SQS = awsXray.captureAWSClient(
 	new AWS.SQS({ endpoint: process.env.SQS_ENDPOINT_URL })
 );
 
-const queueName: string = process.env.EMAIL_QUEUE_NAME;
+const queueName: string = process.env.EMAIL_QUEUE_NAME || `${process.env.SATGE}-email-queue`;
 if (!queueName) {
 	throw new Error('EMAIL_QUEUE_NAME must be set');
 } else {
