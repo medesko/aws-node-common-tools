@@ -144,7 +144,7 @@ export class SlsOauth {
 
     return this.instance.request(config)
       .then((resp: axios.AxiosResponse) => {
-        const duration = time.PrettySince(start);
+        const duration = time.prettySince(start);
         const str = `[${uuid}] ${resp.request.method} ${url} [${resp.status}]`;
 
         if (this.config.verbose)
