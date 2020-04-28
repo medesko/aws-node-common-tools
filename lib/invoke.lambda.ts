@@ -1,12 +1,12 @@
 import * as AWS from 'aws-sdk';
-export const invoke = async ({ functionName, payload, config }) => {
+export const invoke = async ({ functionName, payload, config }, invocationType: string = 'RequestResponse') => {
 
   config.apiVersion ? config.apiVersion : '2015-03-31';
 
   const params =  {
     FunctionName: `${functionName}`,
     Payload: JSON.stringify(payload),
-    InvocationType: 'RequestResponse',
+    InvocationType: invocationType,
     LogType: 'Tail',
   }
 
