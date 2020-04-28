@@ -1,6 +1,6 @@
 {
 	"name": "sls-common-tools",
-	"version": "1.6.7",
+	"version": "1.6.8",
 	"description": "These are all common utilities",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
