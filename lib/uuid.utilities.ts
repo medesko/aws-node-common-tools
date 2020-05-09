@@ -1,5 +1,4 @@
-const UUID = require('uuid/v5');
-
+import { v5 as UUID } from 'uuid';
 export function NewUuid(str: string): string {
 	if (str == '') return NewRandomUuid();
 

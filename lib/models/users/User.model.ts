@@ -44,7 +44,10 @@ export const UserSchema = new Schema(
 		lastName: {
 			type: String,
 		},
-		appScopedData: Schema.Types.Mixed,
+		appScopedData: {
+			type: Schema.Types.Mixed,
+			default: {}
+		},
 	},
 	{ timestamps: true }
 );
