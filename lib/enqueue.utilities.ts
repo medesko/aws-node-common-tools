@@ -6,7 +6,7 @@ const SQS = awsXray.captureAWSClient(
 	new AWS.SQS({ endpoint: process.env.SQS_ENDPOINT_URL })
 );
 
-const queueName: string = process.env.EMAIL_QUEUE_NAME || `${process.env.SATGE}-email-queue`;
+const queueName: string = process.env.QUEUE_NAME || `${process.env.SATGE}-default-queue`;
 if (!queueName) {
 	throw new Error('EMAIL_QUEUE_NAME must be set');
 } else {
@@ -15,7 +15,7 @@ if (!queueName) {
 
 let queueUrlPromise;
 
-export const sendEmail = async message => {
+export const enqueue = async message => {
 	const params = {
 		MessageBody: JSON.stringify(message),
 		QueueUrl: await fetchQueueUrl()
