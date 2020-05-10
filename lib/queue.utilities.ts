@@ -8,7 +8,7 @@ const SQS = awsXray.captureAWSClient(
 
 const queueName: string = process.env.QUEUE_NAME || `${process.env.SATGE}-default-queue`;
 if (!queueName) {
-	throw new Error('EMAIL_QUEUE_NAME must be set');
+	throw new Error('QUEUE_NAME must be set');
 } else {
 	log.info({ queueName }, 'Using queue');
 }

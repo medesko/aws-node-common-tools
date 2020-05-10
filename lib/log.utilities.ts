@@ -3,6 +3,7 @@ const pino = require('pino');
 const { name: serviceName } = require(path.join(process.cwd(), 'package.json'));
 
 export const log = pino({
+	prettyPrint: { colorize: true },
 	serviceName,
 	level:
 		process.env.DEBUG ||
