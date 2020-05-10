@@ -25,6 +25,24 @@ export const enqueue = async message => {
 	log.debug({ result }, 'Sent SQS Message');
 };
 
+export const dequeue = async (params) => {
+	const result = await SQS.receiveMessage({
+		QueueUrl: await fetchQueueUrl(),
+		...params
+	}).promise();
+
+	log.debug({ result }, 'SQS queue from which messages are received');
+	return result
+};
+
+export const deleteQueueMessage = async (receiptHandle) => {
+	const result = await SQS.deleteMessage({
+		QueueUrl: await fetchQueueUrl(),
+		ReceiptHandle: receiptHandle,
+	}).promise();
+	log.debug({ result }, 'SQS queue from Receipt handle are deleted');
+};
+
 const fetchQueueUrl = () => {
 	if (queueUrlPromise) {
 		return queueUrlPromise;
