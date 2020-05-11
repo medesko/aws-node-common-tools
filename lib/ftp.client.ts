@@ -63,4 +63,16 @@ class FtpClient {
     });
   }
 
+  list(path: string): Promise<FtpFileDesc[]> {
+    return new Promise((resolve, reject) => {
+        this.client.list(path, (error, list) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(list);
+            }
+        });
+    });
+  }
+
 }
