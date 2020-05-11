@@ -9,6 +9,14 @@ export interface FtpConfig {
   connTimeout?: number;
 }
 
+export interface FtpFileDesc {
+  name: string;
+  type: string;
+  size: number;
+  date: Date;
+}
+
+
 class FtpClient {
 
   private config: FtpConfig;
@@ -16,25 +24,25 @@ class FtpClient {
 
   configure(config: string) {
       try {
-          this.config = this.getValidatedConfig(config);
-          this.config.connTimeout = 300;
+        this.config = this.getValidatedConfig(config);
+        this.config.connTimeout = 300;
       } catch (e) {
-          log.debug(e);
-          throw Error('FTP Configuration is not valid');
+        log.debug(e);
+        throw Error('FTP Configuration is not valid');
       }
   }
 
   private getValidatedConfig(config: string): FtpConfig {
     const json = JSON.parse(config);
     const configPrototype: FtpConfig = {
-        host: '',
-        port: 0,
-        user: '',
-        password: ''
+      host: this.config.host,
+      port: this.config.port,
+      user: this.config.user,
+      password: this.config.password,
     };
     for (const key of Object.keys(configPrototype)) {
         if (!json.hasOwnProperty(key)) {
-            throw new Error(`JSON Body does not have required property: ${key}`);
+          throw new Error(`JSON Body does not have required property: ${key}`);
         }
     }
     return json;
@@ -45,13 +53,14 @@ class FtpClient {
         this.client = new Client();
         this.client.on('ready', () => {
           log.debug('FTP Connection successful');
-            resolve();
+          resolve();
         });
         this.client.on('error', (error) => {
-            log.debug(error);
-            reject(error);
+          log.debug(error);
+          reject(error);
         });
         this.client.connect(this.config);
     });
   }
+
 }
