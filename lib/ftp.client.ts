@@ -75,4 +75,40 @@ class FtpClient {
     });
   }
 
+  get(path: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+        this.client.get(path, (error, stream) => {
+            if (error) {
+                reject(error);
+            } else {
+                let file = '';
+                stream.on('data', (chunk) => {
+                  file += chunk;
+                });
+                stream.on('end', () => {
+                  resolve(file);
+                });
+                stream.on('error', (error) => {
+                  reject(error);
+                });
+            }
+        });
+    });
+  }
+
+  delete(path: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+        this.client.delete(path, (error) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve();
+            }
+        });
+    });
+  }
+
+  disconnect() {
+    this.client.end();
+  }
 }
