@@ -96,4 +96,19 @@ class FtpClient {
     });
   }
 
+  delete(path: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+        this.client.delete(path, (error) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve();
+            }
+        });
+    });
+  }
+
+  disconnect() {
+    this.client.end();
+  }
 }
