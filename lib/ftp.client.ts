@@ -112,3 +112,5 @@ class FtpClient {
     this.client.end();
   }
 }
+
+export { FtpClient };
