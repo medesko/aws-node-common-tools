@@ -1,2 +1,0 @@
-dist/test/*.spec.js --exit
---reporter spec
