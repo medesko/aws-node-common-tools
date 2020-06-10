@@ -1,14 +1,14 @@
 import * as path from 'path';
-import { expect } from 'chai';
-const awsMock = require('aws-sdk-mock');
-import * as eventDispatcher from '../lib/event.dispatcher';
+// import { expect } from 'chai';
+import awsMock = require('aws-sdk-mock');
+// import * as eventDispatcher from '../lib/event.dispatcher';
 awsMock.setSDK(path.resolve('./node_modules/aws-sdk'));
 
 const received: { cwEvents: any } = { cwEvents: {} };
 
 awsMock.mock('CloudWatchEvents', 'putEvents', (params: any, callback: any) => {
-	received.cwEvents.putEvents = params;
-	callback(null, { ...params });
+  received.cwEvents.putEvents = params;
+  callback(null, { ...params });
 });
 
 // it('dispatchEvent dispatches a CloudWatch custom event', async () => {
