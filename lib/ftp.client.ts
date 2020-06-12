@@ -1,6 +1,13 @@
 const Client = require('ftp');
 import { log } from './log.utilities';
 
+// {
+//   "host": "18x.xxx.xxx.xx",
+//   "port": 21,
+//   "user": "*********",
+//   "password": "********"
+// }
+
 export interface FtpConfig {
   host: string;
   port: number;
@@ -112,3 +119,5 @@ class FtpClient {
     this.client.end();
   }
 }
+
+export { FtpClient };
