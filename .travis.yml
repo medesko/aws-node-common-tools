@@ -7,6 +7,10 @@ install:
   - npm install
   - npm run build
 
+lint:
+  - npm run check:eslint
+  - npm run check:prettier
+
 script:
   - npm run cover
 
