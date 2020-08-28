@@ -1,13 +1,11 @@
 import * as path from 'path';
-const pino = require('pino');
-const { name: serviceName } = require(path.join(process.cwd(), 'package.json'));
+import pino = require('pino');
+const { name } = require(path.join(process.cwd(), 'package.json'));
 
 export const log = pino({
-	serviceName,
-	level:
-		process.env.DEBUG ||
-		process.env.IS_OFFLINE ||
-		process.env.STAGE === 'develop'
-			? 'debug'
-			: 'info'
+  name,
+  level:
+    process.env.DEBUG || process.env.IS_OFFLINE || process.env.STAGE === 'develop'
+      ? 'debug'
+      : 'info',
 });
