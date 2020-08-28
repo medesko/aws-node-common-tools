@@ -9,7 +9,7 @@ export enum UserState {
   ACTIVE = 'ACTIVE',
   DISABLING = 'DISABLING',
   DISABLED = 'DISABLED',
-  LOCKED = 'LOCKED'
+  LOCKED = 'LOCKED',
 }
 
 export const AllUserStates: UserState[] = [
@@ -17,5 +17,5 @@ export const AllUserStates: UserState[] = [
   UserState.ACTIVE,
   UserState.DISABLING,
   UserState.DISABLED,
-  UserState.LOCKED
+  UserState.LOCKED,
 ];
