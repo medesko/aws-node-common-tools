@@ -1,14 +1,16 @@
 import * as AWS from 'aws-sdk';
-export const invoke = async ({ functionName, payload, config }, invocationType: string = 'RequestResponse') => {
-
+export const invoke = async (
+  { functionName, payload, config },
+  invocationType = 'RequestResponse',
+) => {
   config.apiVersion ? config.apiVersion : '2015-03-31';
 
-  const params =  {
+  const params = {
     FunctionName: `${functionName}`,
     Payload: JSON.stringify(payload),
     InvocationType: invocationType,
     LogType: 'Tail',
-  }
+  };
 
   try {
     const result: any = await new AWS.Lambda(config).invoke(params).promise();
@@ -18,4 +20,4 @@ export const invoke = async ({ functionName, payload, config }, invocationType: 
   } catch (err) {
     return err;
   }
-}
+};
