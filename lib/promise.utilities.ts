@@ -1,38 +1,36 @@
 // IndexedValue<I>
 export interface IndexedValue<I> {
-	value: I;
-	index: number;
+  value: I;
+  index: number;
 }
 
 // Result<O> wraps a Promise's result: either of successfull result of
 // type O or an error.
 export interface Result<O> {
-	result?: O;
-	error?: any;
+  result?: O;
+  error?: any;
 }
 
 export interface Results<O> {
-	succeeds: O[];
-	failures: any[];
+  succeeds: O[];
+  failures: any[];
 }
 
 export function GroupResults<O>(results: Result<O>[]): Results<O> {
-	return results.reduce(
-		(acc: { succeeds: O[]; failures: any[] }, result: Result<O>) => {
-			if (result.error != undefined)
-				acc.failures = acc.failures.concat(result.error);
-			else if (result.result != undefined)
-				acc.succeeds = acc.succeeds.concat(result.result);
+  return results.reduce(
+    (acc: { succeeds: O[]; failures: any[] }, result: Result<O>) => {
+      if (result.error != undefined) acc.failures = acc.failures.concat(result.error);
+      else if (result.result != undefined) acc.succeeds = acc.succeeds.concat(result.result);
 
-			return acc;
-		},
-		{ succeeds: [], failures: [] }
-	);
+      return acc;
+    },
+    { succeeds: [], failures: [] },
+  );
 }
 
 // IndexedResult<O> extends Result<O> and adds the index of the input.
 export interface IndexedResult<O> extends Result<O> {
-	index: number;
+  index: number;
 }
 
 // export function SplitIntoChunks<I>(inputs: I[], size: number): I[][] {
@@ -45,20 +43,19 @@ export interface IndexedResult<O> extends Result<O> {
 // }
 
 export function* Generator<I>(args: I[]) {
-	for (const index in args) yield args[index];
+  for (const index in args) yield args[index];
 }
 
 export function* IndexedGenerator<I>(args: I[]) {
-	for (let index = 0; index < args.length; index++)
-		yield {
-			index: index,
-			value: args[index]
-		};
+  for (let index = 0; index < args.length; index++)
+    yield {
+      index: index,
+      value: args[index],
+    };
 }
 
 export function* Chunker<I>(inputs: I[], size: number) {
-	for (let index = 0; index < inputs.length; index += size)
-		yield inputs.slice(index, index + size);
+  for (let index = 0; index < inputs.length; index += size) yield inputs.slice(index, index + size);
 }
 
 // // Oneaftertheother<I, O> executes job on each input one after the other.
@@ -84,7 +81,7 @@ export function* Chunker<I>(inputs: I[], size: number) {
 //       .then((result: O) => {
 //         return task(acc.concat({ result: result }));
 //       })
-//       .catch((err: any) => {
+//       .catch((err: unknown) => {
 //         return task(acc.concat({ error: err }));
 //       });
 //   };
@@ -100,34 +97,34 @@ export function* Chunker<I>(inputs: I[], size: number) {
 //
 // Outputs are returned in the order of inputs.
 export function Parallelizing<I, O>(
-	job: (input: I) => Promise<O>,
-	inputs: I[]
+  job: (input: I) => Promise<O>,
+  inputs: I[],
 ): Promise<Result<O>[]> {
-	return Promise.all(
-		inputs.map((input: I) => {
-			return job(input)
-				.then((result: O) => {
-					return { result: result };
-				})
-				.catch((err: any) => {
-					return { error: err };
-				});
-		})
-	);
+  return Promise.all(
+    inputs.map((input: I) => {
+      return job(input)
+        .then((result: O) => {
+          return { result: result };
+        })
+        .catch((err: unknown) => {
+          return { error: err };
+        });
+    }),
+  );
 }
 
 export function Parallelize<T>(...jobs: Promise<T>[]): Promise<Result<T>[]> {
-	return Promise.all(
-		jobs.map((job: Promise<T>) => {
-			return job
-				.then((result: any) => {
-					return { result: result };
-				})
-				.catch((err: any) => {
-					return { error: err };
-				});
-		})
-	);
+  return Promise.all(
+    jobs.map((job: Promise<T>) => {
+      return job
+        .then((result: any) => {
+          return { result: result };
+        })
+        .catch((err: unknown) => {
+          return { error: err };
+        });
+    }),
+  );
 }
 
 // ParallelizingIntoChuncks<I, O> behaves as Parallelizing<I, O> but
@@ -141,27 +138,27 @@ export function Parallelize<T>(...jobs: Promise<T>[]): Promise<Result<T>[]> {
 //
 // Outputs are returned in the order of inputs.
 export function ParallelizingIntoChuncks<I, O>(
-	job: (input: I) => Promise<O>,
-	inputs: I[],
-	size: number
+  job: (input: I) => Promise<O>,
+  inputs: I[],
+  size: number,
 ): Promise<Result<O>[]> {
-	const chunker = Chunker<I>(inputs, size);
+  const chunker = Chunker<I>(inputs, size);
 
-	const task = (acc: Result<O>[]): Promise<Result<O>[]> => {
-		const chunk: IteratorResult<I[]> = chunker.next();
+  const task = (acc: Result<O>[]): Promise<Result<O>[]> => {
+    const chunk: IteratorResult<I[]> = chunker.next();
 
-		if (chunk == undefined || chunk.done) return Promise.resolve(acc);
+    if (chunk == undefined || chunk.done) return Promise.resolve(acc);
 
-		return Parallelizing<I, O>(job, chunk.value)
-			.then((results: Result<O>[]) => {
-				return task(acc.concat(results));
-			})
-			.catch((err: any) => {
-				throw err;
-			});
-	};
+    return Parallelizing<I, O>(job, chunk.value)
+      .then((results: Result<O>[]) => {
+        return task(acc.concat(results));
+      })
+      .catch((err: unknown) => {
+        throw err;
+      });
+  };
 
-	return task([]);
+  return task([]);
 }
 
 // // Temporalparallelizingintochunks<I, O> behaves as
@@ -204,7 +201,7 @@ export function ParallelizingIntoChuncks<I, O>(
 //       .then((results: any[]) => {
 //         return task(acc.concat(results[1]));
 //       })
-//       .catch((err: any) => { throw err; });
+//       .catch((err: unknown) => { throw err; });
 //   };
 
 //   return task([]);
@@ -226,53 +223,52 @@ export function ParallelizingIntoChuncks<I, O>(
 //
 // Outputs are NOT returned in the order of inputs.
 export function WorkingPool<I, O>(
-	size: number,
-	job: (input: I) => Promise<O>,
-	generator: IterableIterator<IndexedValue<I>>,
-	cb: (err: any | null, result?: IndexedResult<O>) => void
+  size: number,
+  job: (input: I) => Promise<O>,
+  generator: IterableIterator<IndexedValue<I>>,
+  cb: (err: unknown | null, result?: IndexedResult<O>) => void,
 ): void {
-	if (size <= 0)
-		return cb(new Error('WorkingPoolQueue: size must be greater than 0'));
+  if (size <= 0) return cb(new Error('WorkingPoolQueue: size must be greater than 0'));
 
-	let workers = 0;
-	const task = (resolve: () => void): Promise<void> => {
-		const input = generator.next();
+  let workers = 0;
+  const task = (resolve: () => void): Promise<void> => {
+    const input = generator.next();
 
-		if (input.done) {
-			workers--;
-			resolve();
+    if (input.done) {
+      workers--;
+      resolve();
 
-			if (workers == 0) cb(null);
+      if (workers == 0) cb(null);
 
-			return Promise.resolve();
-		}
+      return Promise.resolve();
+    }
 
-		return job(input.value.value)
-			.then((result: O) => {
-				cb(null, { index: input.value.index, result: result });
+    return job(input.value.value)
+      .then((result: O) => {
+        cb(null, { index: input.value.index, result: result });
 
-				return task(resolve);
-			})
-			.catch((err: any) => {
-				cb(null, { index: input.value.index, error: err });
+        return task(resolve);
+      })
+      .catch((err: unknown) => {
+        cb(null, { index: input.value.index, error: err });
 
-				return task(resolve);
-			});
-	};
+        return task(resolve);
+      });
+  };
 
-	for (let index = 0; index < size; index++)
-		new Promise<void>(resolve => {
-			workers++;
+  for (let index = 0; index < size; index++)
+    new Promise<void>(resolve => {
+      workers++;
 
-			task(resolve);
-		});
+      task(resolve);
+    });
 }
 
 // export function WorkingPool2<I, O>(
 //   size: number,
 //   source: () => Promise<I | null>,
 //   job: (input: I) => Promise<O>,
-//   cb: (err: any | null, result?: Result<O>) => void): void {
+//   cb: (err: unknown | null, result?: Result<O>) => void): void {
 
 //   if (size <= 0)
 //     return cb(new Error('WorkingPoolQueue: size must be greater than 0'));
@@ -309,7 +305,7 @@ export function WorkingPool<I, O>(
 
 //               return task(resolve);
 //             })
-//             .catch((err: any) => {
+//             .catch((err: unknown) => {
 //               cb(err);
 
 //               return task(resolve);
@@ -328,47 +324,47 @@ export function WorkingPool<I, O>(
 // WorkingPoolQueue<I, O> behaves as WorkingPool but waits for all the
 // inputs to be executed and puts the results back in the order.
 export function WorkingPoolQueue<I, O>(
-	size: number,
-	job: (input: I) => Promise<O>,
-	inputs: I[]
+  size: number,
+  job: (input: I) => Promise<O>,
+  inputs: I[],
 ): Promise<Result<O>[]> {
-	return new Promise<Result<O>[]>((resolve, reject) => {
-		let results: Result<O>[] = [];
+  return new Promise<Result<O>[]>((resolve, reject) => {
+    let results: Result<O>[] = [];
 
-		results = results.fill({}, 0, inputs.length);
+    results = results.fill({}, 0, inputs.length);
 
-		const cb = (err: any | null, result?: IndexedResult<O>) => {
-			if (err != null) reject(err);
-			else if (result == undefined) resolve(results);
-			else
-				results[result.index] = {
-					result: result.result,
-					error: result.error
-				};
-		};
+    const cb = (err: unknown | null, result?: IndexedResult<O>) => {
+      if (err != null) reject(err);
+      else if (result == undefined) resolve(results);
+      else
+        results[result.index] = {
+          result: result.result,
+          error: result.error,
+        };
+    };
 
-		WorkingPool<I, O>(size, job, IndexedGenerator<I>(inputs), cb);
-	});
+    WorkingPool<I, O>(size, job, IndexedGenerator<I>(inputs), cb);
+  });
 }
 
 export function Cascade<I, O>(
-	job: (input: I, index?: number) => Promise<O>,
-	inputs: I[]
+  job: (input: I, index?: number) => Promise<O>,
+  inputs: I[],
 ): Promise<Result<O>[]> {
-	return inputs.reduce((acc: Promise<Result<O>[]>, input: I, index: number) => {
-		let previous: Result<O>[];
+  return inputs.reduce((acc: Promise<Result<O>[]>, input: I, index: number) => {
+    let previous: Result<O>[];
 
-		return acc
-			.then((results: Result<O>[]) => {
-				previous = results;
+    return acc
+      .then((results: Result<O>[]) => {
+        previous = results;
 
-				return job(input, index);
-			})
-			.then((result: O) => {
-				return previous.concat({ result: result });
-			})
-			.catch((err: any) => {
-				return previous.concat({ error: err });
-			});
-	}, Promise.resolve([]));
+        return job(input, index);
+      })
+      .then((result: O) => {
+        return previous.concat({ result: result });
+      })
+      .catch((err: unknown) => {
+        return previous.concat({ error: err });
+      });
+  }, Promise.resolve([]));
 }
