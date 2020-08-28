@@ -14,11 +14,10 @@
 				"cover": "istanbul cover _mocha ./dist/test/*.spec.js -- -R spec",
 				"lint": "npm run lint:prettier && npm run lint:eslint",
 				"lint:eslint": "eslint --fix './{src,test,tools}/**/*.ts'",
-				"lint:prettier": "prettier --write './{src,test,tools}/**/*.ts'",
+				"lint:prettier": "prettier --write './{src,lib,test,tools}/**/*.ts'",
 				"check": "npm run check:prettier && npm run check:eslint",
-				"check:eslint": "eslint './{src,test,tools}/**/*.ts'",
-				"check:prettier": "prettier -c './{src,test,tools}/**/*.ts'",
-				"prettier": "prettier --write '**/*.{ts,js}'"
+				"check:eslint": "eslint './{src,test,lib,tools}/**/*.ts'",
+				"check:prettier": "prettier -c './{src,test,lib,tools}/**/*.ts'"
 		},
 		"repository": {
 				"type": "git",
