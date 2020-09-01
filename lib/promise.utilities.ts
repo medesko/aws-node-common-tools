@@ -81,7 +81,7 @@ export function* Chunker<I>(inputs: I[], size: number) {
 //       .then((result: O) => {
 //         return task(acc.concat({ result: result }));
 //       })
-//       .catch((err: unknown) => {
+//       .catch((err: any) => {
 //         return task(acc.concat({ error: err }));
 //       });
 //   };
@@ -106,7 +106,7 @@ export function Parallelizing<I, O>(
         .then((result: O) => {
           return { result: result };
         })
-        .catch((err: unknown) => {
+        .catch((err: any) => {
           return { error: err };
         });
     }),
@@ -120,7 +120,7 @@ export function Parallelize<T>(...jobs: Promise<T>[]): Promise<Result<T>[]> {
         .then((result: any) => {
           return { result: result };
         })
-        .catch((err: unknown) => {
+        .catch((err: any) => {
           return { error: err };
         });
     }),
@@ -153,7 +153,7 @@ export function ParallelizingIntoChuncks<I, O>(
       .then((results: Result<O>[]) => {
         return task(acc.concat(results));
       })
-      .catch((err: unknown) => {
+      .catch((err: any) => {
         throw err;
       });
   };
@@ -201,7 +201,7 @@ export function ParallelizingIntoChuncks<I, O>(
 //       .then((results: any[]) => {
 //         return task(acc.concat(results[1]));
 //       })
-//       .catch((err: unknown) => { throw err; });
+//       .catch((err: any) => { throw err; });
 //   };
 
 //   return task([]);
@@ -249,7 +249,7 @@ export function WorkingPool<I, O>(
 
         return task(resolve);
       })
-      .catch((err: unknown) => {
+      .catch((err: any) => {
         cb(null, { index: input.value.index, error: err });
 
         return task(resolve);
@@ -268,7 +268,7 @@ export function WorkingPool<I, O>(
 //   size: number,
 //   source: () => Promise<I | null>,
 //   job: (input: I) => Promise<O>,
-//   cb: (err: unknown | null, result?: Result<O>) => void): void {
+//   cb: (err: any | null, result?: Result<O>) => void): void {
 
 //   if (size <= 0)
 //     return cb(new Error('WorkingPoolQueue: size must be greater than 0'));
@@ -305,7 +305,7 @@ export function WorkingPool<I, O>(
 
 //               return task(resolve);
 //             })
-//             .catch((err: unknown) => {
+//             .catch((err: any) => {
 //               cb(err);
 
 //               return task(resolve);
@@ -333,7 +333,7 @@ export function WorkingPoolQueue<I, O>(
 
     results = results.fill({}, 0, inputs.length);
 
-    const cb = (err: unknown | null, result?: IndexedResult<O>) => {
+    const cb = (err: any | null, result?: IndexedResult<O>) => {
       if (err != null) reject(err);
       else if (result == undefined) resolve(results);
       else
@@ -363,7 +363,7 @@ export function Cascade<I, O>(
       .then((result: O) => {
         return previous.concat({ result: result });
       })
-      .catch((err: unknown) => {
+      .catch((err: any) => {
         return previous.concat({ error: err });
       });
   }, Promise.resolve([]));
