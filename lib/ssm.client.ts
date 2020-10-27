@@ -1,6 +1,5 @@
 import { SSM } from 'aws-sdk';
 import { PSParameterValue } from 'aws-sdk/clients/ssm';
-import { log } from './log.utilities';
 
 interface Inputs {
   name: string;
@@ -11,10 +10,9 @@ interface Inputs {
 class SsmClient {
   constructor(public ssm: SSM) {}
 
-  async createParameter(inputs: any) {
+  async createParameter(inputs: Inputs[]) {
     return await Promise.all(
       inputs.map(async ({ name, type, value }: Inputs) => {
-        log.debug(`Creating ${name}`);
         const result = await this.ssm
           .putParameter({ Name: name, Type: type, Value: value })
           .promise();
