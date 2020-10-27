@@ -3,6 +3,7 @@ import * as awsXray from 'aws-xray-sdk';
 import * as AWS from 'aws-sdk';
 
 const eventbridge = awsXray.captureAWSClient(new AWS.EventBridge());
+
 export const sendToEventBridge = async (bridgeName: string, event: any, source: string) => {
   const { id, type } = event;
 
@@ -13,11 +14,13 @@ export const sendToEventBridge = async (bridgeName: string, event: any, source: 
       {
         Detail: JSON.stringify(event),
         DetailType: type,
-        EventBusName: 'default', //bridgeName,
+        EventBusName: bridgeName || 'default', //bridgeName,
         Resources: [],
         Source: source,
         Time: new Date(),
       },
     ],
   };
+
+  await eventbridge.putEvents(params).promise();
 };
