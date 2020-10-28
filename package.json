@@ -1,6 +1,6 @@
 {
   "name": "sls-common-tools",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "These are all common utilities",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -90,7 +90,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm test && npm audit"
+      "pre-commit": "lint-staged && npm test && npm audit && npm run build"
     }
   }
 }
