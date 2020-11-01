@@ -1,5 +1,5 @@
 import { SSM } from 'aws-sdk';
-import { PSParameterValue } from 'aws-sdk/clients/ssm';
+import { PSParameterValue, GetParameterResult } from 'aws-sdk/clients/ssm';
 
 interface Inputs {
   name: string;
@@ -22,26 +22,25 @@ class SsmClient {
     );
   }
 
-  async getParameter(param: string): Promise<PSParameterValue> {
+  async getOneParameter(param: string): Promise<PSParameterValue | undefined> {
     const config = await this.ssm.getParameter({ Name: param, WithDecryption: true }).promise();
-    return config.Parameter.Value;
+    return config.Parameter?.Value;
   }
 
-  async getAllParameters(): Promise<PSParameterValue[]> {
+  async getAllParameters(): Promise<PSParameterValue[] | undefined> {
     const params = await this.ssm.describeParameters().promise();
-    return await Promise.all(
-      params.Parameters.map(async (param: SSM.ParameterMetadata) => {
-        if (param.Type === 'SecureString') {
-          return `${param.Name}: ****SECRET****`;
-        }
+    if (params.Parameters)
+      return await Promise.all(
+        params.Parameters.map(async (param: SSM.ParameterMetadata) => {
+          if (param.Type === 'SecureString') {
+            return `${param.Name}: ****SECRET****`;
+          }
 
-        const config = await this.ssm
-          .getParameter({ Name: param.Name, WithDecryption: true })
-          .promise();
+          const paramName = await this.getOneParameter(param.Name as string);
 
-        return `${param.Name}: ${config.Parameter.Value}`;
-      }),
-    );
+          return `${param.Name}: ${paramName}`;
+        }),
+      );
   }
 }
 
