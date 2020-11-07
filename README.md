@@ -1,11 +1,11 @@
-# sls-common-tools
+# labs-common-tools
 
 These are all common utilities
 
 ## Installation
 
 ```sh
-npm install sls-common-tools --save
+npm install labs-common-tools --save
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm install sls-common-tools --save
 ### TypeScript
 
 ```typescript
-import { log } from 'sls-common-tools';
+import { log } from 'labs-common-tools';
 log.info('info test');
 ```
 

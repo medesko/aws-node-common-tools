@@ -17,7 +17,7 @@ class Options {
 }
 
 let isConnected = false;
-export const connectTodb = (url?: string) => {
+export const connectTodb = (url: string) => {
   console.log('Start connecting db...');
 
   const options: ConnectionOptions = Options.mongoose;
