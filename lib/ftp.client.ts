@@ -24,12 +24,17 @@ export interface FtpFileDesc {
 }
 
 class FtpClient {
-  private config: FtpConfig;
+  private config: FtpConfig = {
+    host: '',
+    port: 21,
+    user: '',
+    password: '',
+  };
   private client;
 
-  configure(config: string) {
+  configure(jsonConfig: string) {
     try {
-      this.config = this.getValidatedConfig(config);
+      this.config = this.getValidatedConfig(jsonConfig);
       this.config.connTimeout = 300;
     } catch (e) {
       log.debug(e);
@@ -40,10 +45,10 @@ class FtpClient {
   private getValidatedConfig(config: string): FtpConfig {
     const json = JSON.parse(config);
     const configPrototype: FtpConfig = {
-      host: this.config.host,
-      port: this.config.port,
-      user: this.config.user,
-      password: this.config.password,
+      host: '',
+      port: 0,
+      user: '',
+      password: '',
     };
     for (const key of Object.keys(configPrototype)) {
       if (!json.hasOwnProperty(key)) {

@@ -1,5 +1,6 @@
 import * as path from 'path';
-import pino = require('pino');
+import * as pino from 'pino';
+
 const { name } = require(path.join(process.cwd(), 'package.json'));
 
 export const log = pino({
