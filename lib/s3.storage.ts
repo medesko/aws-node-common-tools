@@ -21,6 +21,18 @@ class S3Storage {
 
     return await this.s3.putObject(putRequest).promise();
   }
+
+  async putBucketNotification(
+    bucket: string,
+    notificationConfiguration: S3.NotificationConfiguration,
+  ): Promise<PromiseResult<any, AWSError>> {
+    const putRequest = {
+      Bucket: bucket,
+      NotificationConfiguration: notificationConfiguration,
+    };
+
+    return await this.s3.putBucketNotificationConfiguration(putRequest).promise();
+  }
 }
 
 export { S3Storage };
