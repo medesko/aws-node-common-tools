@@ -1,4 +1,6 @@
 import { Mongoose, ConnectionOptions, connect } from 'mongoose';
+import { log } from './log.utilities';
+
 class Options {
   static get mongoose() {
     return {
@@ -18,11 +20,12 @@ class Options {
 
 let isConnected = false;
 export const connectTodb = (url: string) => {
-  console.log('Start connecting db...');
+  log.info('Start connecting db...');
 
   const options: ConnectionOptions = Options.mongoose;
 
   if (isConnected) {
+    log.info('Using from cached database instance');
     return Promise.resolve();
   }
 
@@ -33,7 +36,7 @@ export const connectTodb = (url: string) => {
       isConnected = db.connection.readyState === 1; // 1 for connected
     })
     .catch(error => {
-      console.log('db error:', error);
+      log.info('db error:' + error);
       return Promise.reject(error);
     });
 };
