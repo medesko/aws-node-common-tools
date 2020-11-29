@@ -7,7 +7,16 @@ export interface IUser {
   email: string;
   firstName?: string;
   lastName?: string;
+  jobTitle: string;
+  avatar: string;
   appScopedData: { [key: string]: IappScopedData };
+}
+
+export interface IProfile {
+  username: string;
+  email: string;
+  jobTitle: string;
+  avatar: string;
 }
 
 export interface IappScopedData {
@@ -19,4 +28,5 @@ export interface IappScopedData {
 
 export interface IUserModel extends IUser, Document {
   toJSONFor: (clientId: string) => IUserModel;
+  toProfileJSONFor: (user?: IUser) => IProfile;
 }

@@ -5,6 +5,7 @@ interface Inputs {
   name: string;
   type: string;
   value: string;
+  overwrite?: boolean;
 }
 
 class SsmClient {
@@ -12,9 +13,9 @@ class SsmClient {
 
   async createParameter(inputs: Inputs[]) {
     return await Promise.all(
-      inputs.map(async ({ name, type, value }: Inputs) => {
+      inputs.map(async ({ name, type, value, overwrite }: Inputs) => {
         const result = await this.ssm
-          .putParameter({ Name: name, Type: type, Value: value, Overwrite: true })
+          .putParameter({ Name: name, Type: type, Value: value, Overwrite: overwrite })
           .promise();
 
         return result;
