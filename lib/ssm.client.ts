@@ -14,7 +14,7 @@ class SsmClient {
     return await Promise.all(
       inputs.map(async ({ name, type, value }: Inputs) => {
         const result = await this.ssm
-          .putParameter({ Name: name, Type: type, Value: value })
+          .putParameter({ Name: name, Type: type, Value: value, Overwrite: true })
           .promise();
 
         return result;
