@@ -7,7 +7,11 @@ export const processEvent = (event: any) => {
   // The following works for offline mode as well as real
   // lambda-proxy with cognito user pool authorization
   // if the 'cognito:username' is set in a JWT-encoded Authorization token
-  const userId = get(requestContext, 'authorizer.claims.cognito:username');
+  log.debug(get(requestContext, 'authorizer.claims'));
+
+  const userId =
+    get(requestContext, 'authorizer.claims.cognito:username') ||
+    get(requestContext, 'authorizer.claims.sub');
   const email = get(requestContext, 'authorizer.claims.email');
   const clientId = get(requestContext, 'authorizer.claims.client_id');
   const isConfirmed = get(requestContext, 'authorizer.claims.scopeIsConfirmed');
