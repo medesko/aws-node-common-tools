@@ -68,9 +68,8 @@ UserSchema.methods.toJSONFor = function (clientId: string) {
 UserSchema.methods.toProfileJSONFor = function (user: IUserModel) {
   return {
     userId: this.userId,
-    displayName: `${this.firstName} ${this.lastName}`,
+    displayName: `${user.firstName} ${user.lastName}`,
     jobTitle: this.jobTitle,
-    email: this.email,
     avatar: this.avatar || 'https://static.productionready.io/images/smiley-cyrus.jpg',
   };
 };
