@@ -1,6 +1,6 @@
 {
   "name": "labs-common-tools",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "These are all common utilities",
   "main": "./dist/index",
   "typings": "dist/index",
