@@ -52,7 +52,7 @@ export const UserSchema = new Schema(
   { timestamps: true },
 );
 
-UserSchema.methods.toJSONFor = function (clientId: string) {
+UserSchema.methods.toJSONFor = function (appClientName: string) {
   return {
     uuid: this.uuid,
     userId: this.userId,
@@ -60,7 +60,7 @@ UserSchema.methods.toJSONFor = function (clientId: string) {
     firstName: this.firstName,
     lastName: this.lastName,
     jobTitle: this.jobTitle,
-    appScopedData: this.appScopedData[clientId],
+    appScopedData: this.appScopedData[appClientName],
     createdAt: this.createdAt,
     updatedAt: this.updatedAt,
   };
