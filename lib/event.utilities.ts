@@ -13,19 +13,19 @@ export const processEvent = (event: any) => {
     get(requestContext, 'authorizer.claims.cognito:username') ||
     get(requestContext, 'authorizer.claims.sub');
   const email = get(requestContext, 'authorizer.claims.email');
-  const clientId = get(requestContext, 'authorizer.claims.client_id');
+  const appClientId = get(requestContext, 'authorizer.claims.client_id');
   const isConfirmed = get(requestContext, 'authorizer.claims.scopeIsConfirmed');
   const scopeRoles = get(requestContext, 'authorizer.claims.scopeRoles');
 
-  let clientName: string | undefined;
+  let appClientName: string | undefined;
 
-  if (clientId)
-    switch (clientId) {
+  if (appClientId)
+    switch (appClientId) {
       case process.env.USER_POOL_ANABOLIC_CLIENT_ID:
-        clientName = 'ANABOLIC';
+        appClientName = 'ANABOLIC';
         break;
       default:
-        clientName = undefined;
+        appClientName = undefined;
     }
 
   log.debug(
@@ -36,8 +36,8 @@ export const processEvent = (event: any) => {
       httpMethod,
       userId,
       email,
-      clientId,
-      clientName,
+      appClientId,
+      appClientName,
       isConfirmed,
       scopeRoles,
     },
@@ -50,8 +50,8 @@ export const processEvent = (event: any) => {
     pathParameters,
     userId,
     email,
-    clientId,
-    clientName,
+    appClientId,
+    appClientName,
     isConfirmed,
     scopeRoles,
   };
