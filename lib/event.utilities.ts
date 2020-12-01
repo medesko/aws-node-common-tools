@@ -17,6 +17,17 @@ export const processEvent = (event: any) => {
   const isConfirmed = get(requestContext, 'authorizer.claims.scopeIsConfirmed');
   const scopeRoles = get(requestContext, 'authorizer.claims.scopeRoles');
 
+  let clientName: string | undefined;
+
+  if (clientId)
+    switch (clientId) {
+      case process.env.USER_POOL_ANABOLIC_CLIENT_ID:
+        clientName = 'ANABOLIC';
+        break;
+      default:
+        clientName = undefined;
+    }
+
   log.debug(
     {
       resourceId,
@@ -26,6 +37,7 @@ export const processEvent = (event: any) => {
       userId,
       email,
       clientId,
+      clientName,
       isConfirmed,
       scopeRoles,
     },
@@ -39,6 +51,7 @@ export const processEvent = (event: any) => {
     userId,
     email,
     clientId,
+    clientName,
     isConfirmed,
     scopeRoles,
   };
