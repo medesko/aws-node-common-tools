@@ -1,6 +1,6 @@
 {
   "name": "labs-common-tools",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "These are all common utilities",
   "main": "./dist/index",
   "typings": "dist/index",
@@ -37,7 +37,7 @@
     "middy": "^0.36.0",
     "middy-autoproxyresponse": "^0.1.0",
     "mongodb": "^3.6.3",
-    "mongoose": "^5.10.13",
+    "mongoose": "5.10.13",
     "ms": "^2.1.2",
     "nunjucks": "^3.2.2",
     "nunjucks-date": "^1.5.0",
