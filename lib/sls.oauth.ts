@@ -193,7 +193,7 @@ export class SlsOauth {
   ): axios.AxiosPromise {
     return new Promise<axios.AxiosPromise>(resolve => {
       setTimeout(() => {
-        resolve();
+        resolve;
       }, timeout);
     })
       .then(() => {
