@@ -35,15 +35,15 @@ export const UserSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
+      lowercase: true,
       unique: true,
+      required: [true, "can't be blank"],
+      match: [/\S+@\S+\.\S+/, 'is invalid'],
     },
-    firstName: {
-      type: String,
-    },
-    lastName: {
-      type: String,
-    },
+    firstName: String,
+    lastName: String,
+    jobTitle: String,
+    avatar: String,
     appScopedData: {
       type: Schema.Types.Mixed,
       default: {},
@@ -52,17 +52,26 @@ export const UserSchema = new Schema(
   { timestamps: true },
 );
 
-UserSchema.methods.toJSONFor = function (clientId: string) {
+UserSchema.methods.toJSONFor = function (appClientName: string) {
   return {
     uuid: this.uuid,
     userId: this.userId,
     email: this.email,
     firstName: this.firstName,
     lastName: this.lastName,
-    appScopedData: this.appScopedData[clientId],
+    jobTitle: this.jobTitle,
+    appScopedData: this.appScopedData[appClientName],
     createdAt: this.createdAt,
     updatedAt: this.updatedAt,
   };
 };
-
+UserSchema.methods.toProfileJSONFor = function (user: IUserModel) {
+  return {
+    userId: this.userId,
+    displayName: `${this.firstName} ${this.lastName}`,
+    jobTitle: this.jobTitle,
+    email: this.email,
+    avatar: this.avatar || 'https://static.productionready.io/images/smiley-cyrus.jpg',
+  };
+};
 export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);
