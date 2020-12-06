@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { UserState, Civility } from './User.enum';
+import { UserState, Civility, Roles } from './User.enum';
 
 export interface IUser {
   uuid: string;
@@ -21,10 +21,18 @@ export interface IProfile {
   avatar: string;
 }
 
+export interface IRole {
+  name: Roles;
+}
+
+export interface IlastConnections {
+  connectAt: Date;
+}
+
 export interface IappScopedData {
-  roles?: Array<{ name: string }>;
+  roles?: IRole[];
   isConfirmed: boolean;
-  connections?: Date[];
+  lastConnections?: IlastConnections[];
   state?: UserState;
 }
 
