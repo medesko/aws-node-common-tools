@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { UserState } from './User.enum';
+import { UserState, Civility } from './User.enum';
 
 export interface IUser {
   uuid: string;
@@ -8,12 +8,14 @@ export interface IUser {
   firstName?: string;
   lastName?: string;
   jobTitle: string;
+  civility?: Civility;
   avatar: string;
   appScopedData: { [key: string]: IappScopedData };
 }
 
 export interface IProfile {
-  username: string;
+  userId: string;
+  displayName: string;
   email: string;
   jobTitle: string;
   avatar: string;
