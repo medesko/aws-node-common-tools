@@ -2,12 +2,31 @@ import { Schema, Model, model } from 'mongoose';
 import { IUserModel } from './IUser.interface';
 import { UserState, AllUserStates, AllUserRoles, Civility } from './User.enum';
 
+const ConnectionSchema = new Schema(
+  {
+    connectAt: Date,
+  },
+  {
+    versionKey: false,
+    _id: false,
+  },
+);
+
+const RoleSchema = new Schema(
+  {
+    name: String,
+  },
+  {
+    versionKey: false,
+    _id: false,
+  },
+);
+
 export const AppScopedDataSchema = new Schema(
   {
-    roles: [AllUserRoles],
+    roles: [RoleSchema],
     connections: {
-      type: [Date],
-      default: [],
+      type: [ConnectionSchema],
     },
     state: {
       type: String,
@@ -43,7 +62,7 @@ export const UserSchema = new Schema(
     firstName: String,
     lastName: String,
     civility: {
-      type: String,
+      type: Number,
       enum: [Civility.MR, Civility.MS, Civility.NOT_SPECIFIED],
       default: Civility.NOT_SPECIFIED,
     },

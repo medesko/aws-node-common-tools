@@ -1,19 +1,20 @@
 import { Mongoose, ConnectionOptions, connect } from 'mongoose';
 import { log } from './log.utilities';
-
 class Options {
   static get mongoose() {
     return {
       autoIndex: true, // Don't build indexes
       poolSize: 10, // Maintain up to 10 socket connections
       // If not connected, return errors immediately rather than waiting for reconnect
-      bufferMaxEntries: 0,
-      connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
-      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+      bufferMaxEntries: 0, //  MongoDB driver buffering
+      bufferCommands: false, // Disable mongoose buffering
+      // connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+      // socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
       keepAlive: true,
+      useFindAndModify: false,
     };
   }
 }
