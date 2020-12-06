@@ -1,10 +1,10 @@
 import { Schema, Model, model } from 'mongoose';
 import { IUserModel } from './IUser.interface';
-import { UserState, AllUserStates } from './User.enum';
+import { UserState, AllUserStates, AllUserRoles, Civility } from './User.enum';
 
 export const AppScopedDataSchema = new Schema(
   {
-    roles: [],
+    roles: [AllUserRoles],
     connections: {
       type: [Date],
       default: [],
@@ -42,6 +42,11 @@ export const UserSchema = new Schema(
     },
     firstName: String,
     lastName: String,
+    civility: {
+      type: String,
+      enum: [Civility.MR, Civility.MS, Civility.NOT_SPECIFIED],
+      default: Civility.NOT_SPECIFIED,
+    },
     jobTitle: String,
     avatar: String,
     appScopedData: {
@@ -52,7 +57,7 @@ export const UserSchema = new Schema(
   { timestamps: true },
 );
 
-UserSchema.methods.toJSONFor = function (appClientName: string) {
+UserSchema.methods.toJSONFor = function (clientId: string) {
   return {
     uuid: this.uuid,
     userId: this.userId,
@@ -60,7 +65,7 @@ UserSchema.methods.toJSONFor = function (appClientName: string) {
     firstName: this.firstName,
     lastName: this.lastName,
     jobTitle: this.jobTitle,
-    appScopedData: this.appScopedData[appClientName],
+    appScopedData: this.appScopedData[clientId],
     createdAt: this.createdAt,
     updatedAt: this.updatedAt,
   };
