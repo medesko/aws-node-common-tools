@@ -16,5 +16,4 @@ export * from './lib/sls.oauth';
 export * from './lib/s3.storage';
 export * from './lib/ssm.client';
 export * from './lib/event.bridge';
-export * from './lib/handler.wrapper';
 export * from './lib/insee.api';

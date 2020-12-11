@@ -222,7 +222,7 @@ export class Insee {
   ): axios.AxiosPromise {
     return new Promise<axios.AxiosPromise>(resolve => {
       setTimeout(() => {
-        resolve();
+        resolve;
       }, timeout);
     })
       .then(() => {
