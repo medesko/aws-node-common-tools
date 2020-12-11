@@ -26,15 +26,9 @@ const validateEvent = (e, schema) => {
   return { result: result.value, isValid, errors };
 };
 
-const compile = (v: any, options: any = { abortEarly: true }): Joi.ObjectSchema => {
-  return Joi.object(v).options(options);
-};
-
 const schema = {
-  validate: compile(
-    Joi.object({
-      e: Joi.object(),
-    }),
-  ),
+  validate: Joi.object({
+    e: Joi.object(),
+  }),
   handler: Joi.func().maxArity(2),
 };
