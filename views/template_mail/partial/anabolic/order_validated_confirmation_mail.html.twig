@@ -1,0 +1,51 @@
+{% extends "../main.html.twig" %}
+{% block content %}
+    <!-- =============================== Body ====================================== -->
+    <div class="movableContent"
+         style="border: 0; padding-top: 0; position: relative;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0"
+               align="center">
+            <tr><td height='20'></td></tr>
+            <tr>
+                <td align='left'>
+                    <div class="contentEditableContainer contentTextEditable">
+                        <div class="contentEditable">
+                            <p> <h1> Bonjour {{recipient.firstName}}  {{recipient.lastName}} </h1></p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align='left'>
+                    <div class="contentEditableContainer contentTextEditable">
+                        <p>Vous avez reçu une demande de validation de la part de {{sender.firstName}}  {{sender.lastName}}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="contentEditableContainer contentTextEditable">
+                        <p>Demande faite le {{request.createDate}}.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td height='15'>
+                    <div style="border-top:1px solid #e5e9f4; margin-top:20px"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align='left'>
+                    <div class="contentEditableContainer contentTextEditable">
+                        <div class="contentEditable">
+                            <p><h2>Période : </h2></p>
+                            <p><div>XXXXXXXXXXX</div><br>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
