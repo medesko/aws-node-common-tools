@@ -41,6 +41,12 @@ export const acl = new AclPromise();
   acl.allow(Roles.ACCOUNT_MANAGER, Resources.USER, Permissions.ALL_USER());
   acl.allow(Roles.ACCOUNT_MANAGER, Resources.ORDER, Permissions.ALL_ORDER());
 
+  // Can read order if it's a order from its own establishment
+  acl.allow(Roles.PROVIDER_RESPONSIBLE, Resources.ORDER, Permissions.ALL_ORDER());
+
+  // CONTRACTOR Can read order data
+  acl.allow(Roles.CONTRACTOR, Resources.ORDER, Permissions.ALL_ORDER());
+
   // admin are allowed to do everything
   acl.allow(Roles.ADMIN);
 })();
