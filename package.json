@@ -1,6 +1,6 @@
 {
   "name": "labs-common-tools",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "These are all common utilities",
   "main": "./dist/index",
   "typings": "dist/index",
@@ -34,6 +34,7 @@
     "axios": "^0.21.0",
     "joi": "^17.3.0",
     "lambda-logger-middleware": "^1.0.3",
+    "virgen-acl": "^0.0.22",
     "lodash": "^4.17.20",
     "middy": "^0.36.0",
     "middy-autoproxyresponse": "^0.1.0",
