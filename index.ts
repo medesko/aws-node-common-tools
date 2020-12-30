@@ -17,3 +17,4 @@ export * from './lib/s3.storage';
 export * from './lib/ssm.client';
 export * from './lib/event.bridge';
 export * from './lib/middlewares/access-control-list/index';
+export * from './lib/middlewares/authorizer.auth';

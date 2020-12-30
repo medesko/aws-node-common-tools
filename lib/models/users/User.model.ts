@@ -89,12 +89,15 @@ UserSchema.methods.toJSONFor = function (clientId: string) {
     updatedAt: this.updatedAt,
   };
 };
-UserSchema.methods.toProfileJSONFor = function (user: IUserModel) {
+UserSchema.methods.toProfileJSONFor = function (clientId: string, user: IUserModel) {
   return {
     userId: this.userId,
     displayName: `${this.firstName} ${this.lastName}`,
     jobTitle: this.jobTitle,
-    email: this.email,
+    roles: this.appScopedData[clientId]?.roles.map(r => r.name),
+    isConfirmed: this.appScopedData[clientId]?.isConfirmed,
+    state: this.appScopedData[clientId]?.state,
+    lastConnections: this.appScopedData[clientId]?.lastConnections,
     avatar: this.avatar || 'https://static.productionready.io/images/smiley-cyrus.jpg',
   };
 };
