@@ -19,10 +19,15 @@ export interface IProfile {
   email: string;
   jobTitle: string;
   avatar: string;
+  roles: string[];
+  isConfirmed: boolean;
+  lastConnections?: IlastConnections[];
+  state: UserState;
 }
 
 export interface IRole {
   name: Roles;
+  resource?: string;
 }
 
 export interface IlastConnections {
@@ -30,13 +35,13 @@ export interface IlastConnections {
 }
 
 export interface IappScopedData {
-  roles?: IRole[];
+  roles: IRole[];
   isConfirmed: boolean;
   lastConnections?: IlastConnections[];
-  state?: UserState;
+  state: UserState;
 }
 
 export interface IUserModel extends IUser, Document {
   toJSONFor: (clientId: string) => IUserModel;
-  toProfileJSONFor: (user?: IUser) => IProfile;
+  toProfileJSONFor: (clientId: string, user?: IUser) => IProfile;
 }
